@@ -103,22 +103,21 @@ let players = [
 
 router.post("/players", function(req, res){
     let newPlayer = req.body
-    players.push(newPlayer)
-    res.send( { data : players, status : true } )
+    let newPlayersName = newPlayer.name
+    let isNameRepeated = false
+    for(let i = 0 ; i < players.length ; i++){
+        if(players[i].name == newPlayersName){
+            isNameRepeated = true
+            break
+        }
+    }
+    if(isNameRepeated){
+        res.send("This name already exists")
+    } else {
+        players.push(newPlayer)
+        res.send( { data : players, status : true } )
+    }
 })
 
 
 module.exports = router;
-
-
-
-
-
-// {
-//     "name": "rohan",
-//     "dob": "13/4/1998",
-//     "gender": "male",
-//     "city": "raipur",
-//     "sports": ["cricket", "swimming"]
-
-// }
