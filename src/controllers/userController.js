@@ -18,7 +18,7 @@ const loginUser = async function (req, res) {
   let userName = req.body.emailId;
   let password = req.body.password;
 
-  let user = await userModel.findOne({ emailId: userName, password: password });
+  let user = await userModel.findOne();
   if (!user)
     return res.send({
       status: false,
