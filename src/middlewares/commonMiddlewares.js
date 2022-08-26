@@ -20,25 +20,25 @@
 //     next()
 // }
 
-const validation= function(req, res, next){
-    let data= req.headers
-    let check= data.hasOwnProperty('isFreeAppUser')
-    if(check === false){
-        res.send({msg: "The request is missing a mandatory header"})
-    } else if(check === true){
-        next()
-    }
-}
-
 // const validation= function(req, res, next){
-//     let data= req.headers.isFreeAppUser
-//     if(!data){
+//     let data= req.headers
+//     let check= data.hasOwnProperty('isFreeAppUser')
+//     if(check === false){
 //         res.send({msg: "The request is missing a mandatory header"})
-//     }
-//     if(data){
+//     } else if(check === true){
 //         next()
 //     }
 // }
+
+const validation= function(req, res, next){
+    let data= req.headers
+    if(!data.isFreeAppUser){
+        next()
+    }
+    if(data.isFreeAppUser){
+        return res.send({msg: "The request is missing a mandatory header"})
+    }
+}
 
 
 // module.exports.mid1= mid1
