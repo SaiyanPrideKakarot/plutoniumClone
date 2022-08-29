@@ -12,10 +12,10 @@ router.post("/users", userController.register)
 
 router.post("/login", middleware.isRegistered, userController.login)
 
-router.get("/users/:userId", middleware.isRegistered, middleware.isLoggedIn, userController.getUserById)
+router.get("/users/:userId", middleware.tokenCheck, userController.getUserById)
 
-router.put("/users/:userId", middleware.isRegistered, middleware.isLoggedIn, userController.updateUserData)
+router.put("/users/:userId", middleware.tokenCheck, userController.updateUserData)
 
-router.delete("/users/:userId", middleware.isRegistered, middleware.isLoggedIn, userController.deleteUserData)
+router.delete("/users/:userId", middleware.tokenCheck, userController.deleteUserData)
 
 module.exports = router;

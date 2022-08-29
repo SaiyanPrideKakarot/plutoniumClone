@@ -11,16 +11,16 @@ const isRegistered= async function(req, res, next){
     next()
 }
 
-const isLoggedIn= async function(req, res, next){
-    let token= req.headers["x-Auth-Token"]
-    if(!token){
-        token= req.headers["x-auth-token"]
+let tokenCheck= function(req, res, next){
+    let token= req.headers["x-auth-token"]
+    let validToken= jwt.verify(token, 'This is my unique secret key')
+    if(validToken){
+        req.validToken= validToken
+        next()
+    } else {
+        res.status(401).send({status: false, msg: "Invalid Token"})
     }
-    if(!token){
-        return res.send({status: false, msg:"Token must be present"})
-    }
-    next()
 }
 
 module.exports.isRegistered= isRegistered
-module.exports.isLoggedIn= isLoggedIn
+module.exports.tokenCheck= tokenCheck
